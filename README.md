@@ -6,4 +6,4 @@ Find the answer using this server application.
 
 # honours
 
-Based on wonderful project https://github.com/kraktus/AreMyGamesInLichessPuzzles .
+Based on and using the collected data of wonderful project https://github.com/kraktus/AreMyGamesInLichessPuzzles .
