@@ -4,10 +4,33 @@ const PORT = parseInt(process.env.PORT || 3000)
 const path = require('path')
 const fs = require('fs')
 
-const puzzles = fs.readFileSync("leaderboard.csv").toString().split("\n")
+const TOPLIST_PAGE_SIZE = 100
+
+const puzzles = fs.readFileSync("leaderboard.csv").toString().split("\n").slice(1)
+
+function genToplistPage(records){
+	const template = fs.readFileSync(path.join(__dirname, "toplist.html")).toString().replace("xxx", "`" + records + "`")
+	return template
+}
+
+function getToplistPage(page){
+	return new Promise((resolve, reject) => {
+		const from = (page - 1) * TOPLIST_PAGE_SIZE		
+		const len = puzzles.length
+		const to = Math.min(page * TOPLIST_PAGE_SIZE, len)
+		const maxAllowedPage = Math.floor(len / TOPLIST_PAGE_SIZE)
+		if(page > maxAllowedPage){
+			reject(`toplist page out of range ( maximum allowed page is ${maxAllowedPage} ) `)						
+		}else{
+			resolve(puzzles.slice(from, to).join("\n"))
+		}
+	})
+}
 
 app.get('/', (req, res) => {
-	let username = req.query.getpuzzles
+	const username = req.query.getpuzzles
+	const toplistPageStr = req.query.toplistPage
+	
 	if(username){
 		const matcher = new RegExp(`([0-9]+),(${username}),([0-9]+),(.*)`, "i")
 		const ups = puzzles.find(line => line.match(matcher))
@@ -24,6 +47,12 @@ app.get('/', (req, res) => {
 		}else{
 			res.send(`meh ... , user <b style="color: #700">${username}</b> was not found in puzzles database`)
 		}
+	}else if(toplistPageStr){		
+		const toplistPage = parseInt(toplistPageStr)
+		getToplistPage(toplistPage).then(
+			records => res.send(genToplistPage(records)),
+			err => res.send(err)
+		)
 	}else{
 		res.sendFile(path.join(__dirname, "index.html"))		
 	}
