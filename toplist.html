@@ -18,7 +18,7 @@
 	
 	const prevPage = page > 1 ? `<a href="/?toplistPage=${page - 1}">Previous page</a> | ` : ""
 	
-	document.getElementById("root").innerHTML = `${prevPage}<a href="/?toplistPage=${page + 1}">Next page</a><hr>
+	document.getElementById("root").innerHTML = `${prevPage}<a href="/?toplistPage=${page + 1}">Next page</a> | <a href="/">Home</a><hr>
 `	
 	document.write(`<table cellspacing="3" cellpadding="3" border="1">`)
 	document.write(`<tr><td>Index</td><td>Rank</td><td>Username</td><td>No</td><td>Puzzles</td></tr>`)
