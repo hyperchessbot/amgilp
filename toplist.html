@@ -29,8 +29,18 @@
 		
 		const puzzleUrls = puzzleIdsStr.split(" ").map(puzzleId => `<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/${puzzleId}">${puzzleId}</a>`).join(" | ")
 		
-		document.write(`<tr><td>${parseInt(i) + records.length * (page - 1) + 1}</td><td>${rank}</td><td><a target="_blank" rel="noopener noreferrer" href="https://lichess.org/@/${username}">${username}</a></td><td>${num}</td><td><div style="max-height:50px; overflow:scroll;">${puzzleUrls}<div></td></tr>`)
+		document.write(`<tr id="tr${parseInt(i) + 1}"><td><a href="/?toplistPage=${page}#${parseInt(i) + 1}">${parseInt(i) + records.length * (page - 1) + 1}.</a></td><td>${rank}.</td><td><a target="_blank" rel="noopener noreferrer" href="https://lichess.org/@/${username}">${username}</a></td><td>${num}</td><td><div style="max-height:50px; overflow:scroll;">${puzzleUrls}<div></td></tr>`)
 	}
 	document.write(`</table>`)
+	
+	setTimeout(_ => {
+		let indexM = document.location.href.match(/#([0-9]+)$/)
+		if(indexM){
+			const id = `tr${indexM[1]}`
+			console.log(id)
+			document.getElementById(id).scrollIntoView()
+		}	
+	}, 1000)
+	
 </script>
 </html>
