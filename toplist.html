@@ -21,7 +21,7 @@
 	document.getElementById("root").innerHTML = `${prevPage}<a href="/?toplistPage=${page + 1}">Next page</a> | <a href="/">Home</a><hr>
 `	
 	document.write(`<table cellspacing="3" cellpadding="3" border="1">`)
-	document.write(`<tr><td>Index</td><td>Rank</td><td>Username</td><td>No</td><td>Puzzles</td></tr>`)
+	document.write(`<tr><td>Index</td><td>Rank</td><td>Username</td><td style="text-align:center;">No</td><td>Puzzles</td></tr>`)
 	
 	for(let i in records){
 		const record = records[i]
@@ -29,7 +29,7 @@
 		
 		const puzzleUrls = puzzleIdsStr.split(" ").map(puzzleId => `<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/${puzzleId}">${puzzleId}</a>`).join(" | ")
 		
-		document.write(`<tr id="tr${parseInt(i) + 1}"><td><a href="/?toplistPage=${page}#${parseInt(i) + 1}">${parseInt(i) + records.length * (page - 1) + 1}.</a></td><td>${rank}.</td><td><a target="_blank" rel="noopener noreferrer" href="https://lichess.org/@/${username}">${username}</a></td><td>${num}</td><td><div style="max-height:50px; overflow:scroll;">${puzzleUrls}<div></td></tr>`)
+		document.write(`<tr id="tr${parseInt(i) + 1}"><td><a href="/?toplistPage=${page}#${parseInt(i) + 1}">${parseInt(i) + records.length * (page - 1) + 1}.</a></td><td style="font-family:monospace; font-size:18px; text-align:center; font-weight:bold; color:#00f; background-color:#ffa;">${rank}.</td><td style="font-family:monospace; font-weight:bold; background-color:#ffa; font-size:18px;"><a target="_blank" rel="noopener noreferrer" href="https://lichess.org/@/${username}">${username}</a></td><td style="font-family:monospace; font-size:18px; padding:8px; font-weight:bold; color:#070;">${num}</td><td><div style="max-height:50px; overflow:scroll;">${puzzleUrls}<div></td></tr>`)
 	}
 	document.write(`</table>`)
 	
