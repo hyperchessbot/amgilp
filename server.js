@@ -9,7 +9,7 @@ const puzzles = fs.readFileSync("leaderboard.csv").toString().split("\n")
 app.get('/', (req, res) => {
 	let username = req.query.getpuzzles
 	if(username){
-		const matcher = new RegExp(`([0-9]+),${username},([0-9]+),(.*)`)
+		const matcher = new RegExp(`([0-9]+),${username},([0-9]+),(.*)`, "i")
 		const ups = puzzles.find(line => line.match(matcher))
 		if(ups){
 			console.log(ups)
