@@ -28,7 +28,7 @@ function getToplistPage(page){
 }
 
 app.get('/', (req, res) => {
-	const username = req.query.getpuzzles
+	let username = req.query.getpuzzles
 	const toplistPageStr = req.query.toplistPage
 	
 	if(username){
