@@ -19,9 +19,9 @@ app.get('/', (req, res) => {
 			const puzzleIds = m[3].split(" ")
 			const puzzleUrls = puzzleIds.map(puzzleId => `<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/${puzzleId}">${puzzleId}</a>`).join("<br>")
 
-			res.send(`${username} found , rank ${rank} , number of puzzles ${num}<hr>${puzzleUrls}`)	
+			res.send(`wow , <b style="color:#070">${username}</b> has games in puzzles , rank <b style="color:#00f">${rank}</b> , number of puzzles <b style="color:#707">${num}</b><hr>${puzzleUrls}`)	
 		}else{
-			res.send("user ${username} was not found in puzzles database")
+			res.send(`meh ... , user <b style="color: #700">${username}</b> was not found in puzzles database`)
 		}
 	}else{
 		res.sendFile(path.join(__dirname, "index.html"))		

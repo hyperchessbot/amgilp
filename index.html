@@ -19,6 +19,9 @@
 		let username = document.getElementById("username").value
 		let reqUrl = `/?getpuzzles=${username}`
 		window.open(reqUrl)
-	}
+	}	
+	document.getElementById("username").addEventListener("keydown", ev => {
+		if(ev.keyCode == 13) loadUser()
+	})
 </script>
 </html>
