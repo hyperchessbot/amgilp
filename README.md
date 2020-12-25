@@ -1,6 +1,6 @@
 # amgilp
 
-Are my games in lichess puzzles?
+**Are my games in lichess puzzles ?**
 
 Find the answer using this server application.
 
