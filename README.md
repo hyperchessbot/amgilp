@@ -1,3 +1,9 @@
-# Players "leaderboard" in term of puzzles generated
+# amgilp
 
-Based on https://github.com/kraktus/AreMyGamesInLichessPuzzles .
+Are my games in lichess puzzles?
+
+Find the answer using this server application.
+
+# honours
+
+Based on wonderful project https://github.com/kraktus/AreMyGamesInLichessPuzzles .
