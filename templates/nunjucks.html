@@ -15,7 +15,7 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 
 	{% if found %}
 
-		wow <b style="color:#070;">{{ found.username }}</b> has games in puzzles , rank <b style="color:#007;">{{ found.rank }}</b> , puzzles <b style="color:#707;">{{ found.num }}</b>
+		wow , <b style="color:#070;">{{ found.username }}</b> has games in puzzles , rank <b style="color:#007;">{{ found.rank }}</b> , puzzles <b style="color:#707;">{{ found.num }}</b>
 
 		<hr>
 
@@ -37,7 +37,7 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 
 	{% else %}
 
-		meh ... , no games in puzzles for <b style="color:#700;">{{ username }}</b>
+		meh ... , <b style="color:#700;">{{ username }}</b> has no games in puzzles
 
 		<hr>
 
