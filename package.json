@@ -19,6 +19,10 @@
   },
   "homepage": "https://github.com/kraktus/AreMyGamesInLichessPuzzles#readme",
   "dependencies": {
+    "discord.js": "^12.5.1",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }

@@ -4,6 +4,50 @@ const PORT = parseInt(process.env.PORT || 3000)
 const path = require('path')
 const fs = require('fs')
 
+require('dotenv').config()
+
+console.log(process.env)
+
+///////////////////////////////////////////////////////////////////////
+// https://discord.js.org/#/
+
+const Discord = require('discord.js')
+const discordClient = new Discord.Client()
+
+let sendDiscord = (channelName, message) => {
+	console.log("discord client not ready for sending", channelName, message)
+}
+
+discordClient.on('ready', _ => {
+	console.log(`Discord bot logged in as ${discordClient.user.tag}!`)
+	
+	sendDiscord = (channelName, message) => {
+		const channel = discordClient.channels.cache.find(channel => channel.name === channelName)
+		
+		channel.send(message)
+	}
+	
+	if(process.env.SEND_LOGIN_MESSAGE) sendDiscord("bot-log", "bot logged in")
+})
+
+discordClient.on('message', msg => {
+	if (msg.content === 'ping') {
+		msg.reply('pong!')
+	}
+})
+
+if(process.env.DISCORD_BOT_TOKEN){
+	discordClient.login(process.env.DISCORD_BOT_TOKEN)
+}
+
+function logDiscord(msg){
+	if(process.env.LOG_DISCORD){
+		sendDiscord("bot-log", msg)
+	}
+}
+
+///////////////////////////////////////////////////////////////////////
+
 const TOPLIST_PAGE_SIZE = 100
 
 const puzzles = fs.readFileSync("leaderboard.csv").toString().split("\n").slice(1)
@@ -32,6 +76,8 @@ app.get('/', (req, res) => {
 	const toplistPageStr = req.query.toplistPage
 	
 	if(username){
+		logDiscord(`getpuzzles of ${username}`)
+		
 		const matcher = new RegExp(`([0-9]+),(${username}),([0-9]+),(.*)`, "i")
 		const ups = puzzles.find(line => line.match(matcher))
 		if(ups){
@@ -48,6 +94,8 @@ app.get('/', (req, res) => {
 			res.send(`meh ... , user <b style="color: #700">${username}</b> was not found in puzzles database`)
 		}
 	}else if(toplistPageStr){		
+		logDiscord(`get toplist page ${toplistPageStr}`)
+		
 		const toplistPage = parseInt(toplistPageStr)
 		getToplistPage(toplistPage).then(
 			records => res.send(genToplistPage(records)),
