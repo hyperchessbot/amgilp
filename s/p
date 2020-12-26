@@ -2,6 +2,6 @@ git add .
 
 git commit -m "$*"
 
-git push github
+git push github nunjucks
 
-git push gitlab
+git push gitlab nunjucks
