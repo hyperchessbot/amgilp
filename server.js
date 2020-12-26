@@ -150,6 +150,6 @@ app.get("/nunjucks", (req, res) => {
 
 app.use("/", express.static(path.join(__dirname, "/")))
 
-app.listen(PORT, () => {
-  console.log(`amgilp server listening at ${PORT}`)
+app.listen(PORT, _ => {
+ 	console.log(`amgilp nunjucks server listening at ${PORT}`)
 })
