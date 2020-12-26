@@ -25,7 +25,8 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 
 		<tr>
 			<td><a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/{{ id }}">{{ id }}</a></td>
-			<td id="{{ id }}">loading game data ...</td>
+			<td style="min-width: 350px;" id="{{ id }}">loading game data ...</td>
+			<td id="pgn{{ id }}">loading moves ...</td>
 		</tr>
 
 		{% endfor %}
@@ -69,11 +70,11 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 					const id = found.puzzleIds[i]
 					fetch(`/puzzle/?id=${id}`).then(response => response.json().then(blob => {
 						const data = blob.data
-						const game = data.game
-						const players = game.players
-						//console.log(blob)
+						const game = data.game						
+						const players = game.players						
 						const playersData = players.map(player => player.name).join(" - ")
-						document.getElementById(id).innerHTML = playersData
+						document.getElementById(id).innerHTML = `<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/${game.id}">${playersData} ${game.clock}</a>`
+						document.getElementById("pgn" + id).innerHTML = game.pgn
 					}))					
 				}, i * 2000)
 			}
