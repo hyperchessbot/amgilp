@@ -79,6 +79,8 @@ function getToplistPage(page){
 				return {
 					index0: i,
 					index1: i + 1,
+					nextPage: page + 1,
+					prevPage: page - 1,
 					rank: parseInt(items[0]),
 					username: items[1],
 					num: parseInt(items[2]),
