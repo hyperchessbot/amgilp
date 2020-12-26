@@ -22,7 +22,8 @@
     "discord.js": "^12.5.1",
     "express": "^4.17.1",
     "node-fetch": "^2.6.1",
-    "nunjucks": "^3.2.2"
+    "nunjucks": "^3.2.2",
+    "string-similarity": "^4.0.3"
   },
   "devDependencies": {
     "dotenv": "^8.2.0"

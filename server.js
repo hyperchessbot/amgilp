@@ -4,6 +4,7 @@ const PORT = parseInt(process.env.PORT || 3000)
 const path = require('path')
 const fs = require('fs')
 const fetch = require('node-fetch')
+const stringSimilarity = require('string-similarity')
 
 const serverUrl = process.env.SERVER_URL || "https://amgilp.herokuapp.com"
 
@@ -62,6 +63,8 @@ const TOPLIST_PAGE_SIZE = 100
 
 const puzzles = fs.readFileSync("leaderboard.csv").toString().split("\n").slice(1)
 
+const usernames = puzzles.map(puzzle => puzzle.split(",")[1]).filter(item => item)
+
 function getToplistPage(page){
 	return new Promise((resolve, reject) => {
 		const from = (page - 1) * TOPLIST_PAGE_SIZE		
@@ -119,16 +122,24 @@ app.get("/", (req, res) => {
 	
 	let found = null
 	
+	let bestMatch = username
+	
 	if(username){
 		found = lookupUsername(username)
 		logDiscord(`getpuzzles of ${username} ( <${serverUrl}> )`)
+		if(!found){			
+			const result = stringSimilarity.findBestMatch(username, usernames)
+			console.log(result.bestMatch)
+			bestMatch = result.bestMatch.target
+		}
 	}
 
 	res.render('nunjucks.html', {
 		username: username,
 		found: found,		
 		foundJsonStr: JSON.stringify(found, null, 2),
-		toplistPageStr: toplistPageStr
+		toplistPageStr: toplistPageStr,
+		bestMatch: bestMatch
 	})
 })
 	
