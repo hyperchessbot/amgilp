@@ -120,6 +120,12 @@ app.get("/", (req, res) => {
 	let username = req.query.getpuzzles
 	const toplistPageStr = req.query.toplistPage
 	
+	if(toplistPageStr){
+		res.redirect(`/toplist/?page=${toplistPageStr}`)
+		
+		return
+	}
+	
 	let found = null
 	
 	let bestMatch = username
@@ -137,8 +143,7 @@ app.get("/", (req, res) => {
 	res.render('nunjucks.html', {
 		username: username,
 		found: found,		
-		foundJsonStr: JSON.stringify(found, null, 2),
-		toplistPageStr: toplistPageStr,
+		foundJsonStr: JSON.stringify(found, null, 2),		
 		bestMatch: bestMatch
 	})
 })
