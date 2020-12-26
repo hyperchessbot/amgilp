@@ -144,7 +144,7 @@ app.get("/toplist", (req, res) => {
 				page: page,
 				nextPage: page + 1,
 				prevPage: page - 1,
-				title: `Toplist Page ${page}`,
+				title: `amgilp - Toplist Page ${page} - Are my games in lichess puzzles ?`,
 				puzzles: puzzles
 			})
 		},
