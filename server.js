@@ -78,9 +78,9 @@ function getToplistPage(page){
 				const items = csv.split(",")
 				return {
 					index0: i,
-					index1: i + 1,
-					nextPage: page + 1,
-					prevPage: page - 1,
+					index1: i + 1,			
+					fullIndex0: from + i,
+					fullIndex1: from + i + 1,
 					rank: parseInt(items[0]),
 					username: items[1],
 					num: parseInt(items[2]),
@@ -169,6 +169,8 @@ app.get("/toplist", (req, res) => {
 		puzzles => {
 			res.render('toplist.html', {
 				page: page,
+				nextPage: page + 1,
+				prevPage: page - 1,
 				puzzles: puzzles
 			})
 		},

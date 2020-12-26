@@ -2,9 +2,17 @@
 
 {{ macros.html_head("toplist") }}
 
-toplist page {{ page }}.
+<script>
+	document.body.style.opacity = "0.0"
+</script>
+
+toplist page {{ page }}. | 
+
+{% if prevPage %}
 
 <a href="/toplist?page={{ prevPage }}">Previous page</a> | 
+
+{% endif %}
 
 <a href="/toplist?page={{ nextPage }}">Next page</a>
 
@@ -14,7 +22,7 @@ toplist page {{ page }}.
 	
 {% for puzzle in puzzles %}
 
-<tr id=""><td>{{ puzzle.index1 }}.</td><td style="font-family:monospace; font-size:18px; text-align:center; font-weight:bold; color:#00f; background-color:#ffa;">{{ puzzle.rank }}.</td><td style="padding-left:10px;font-family:monospace; font-weight:bold; background-color:#ffa; font-size:18px;"><a target="_blank" rel="noopener noreferrer" href="https://lichess.org/@/${username}">{{ puzzle.username }}</a></td><td style="font-family:monospace; font-size:18px; padding:8px; font-weight:bold; color:#070;">{{ puzzle.num }}</td><td>
+<tr id=""><td>{{ puzzle.fullIndex1 }}.</td><td style="font-family:monospace; font-size:18px; text-align:center; font-weight:bold; color:#00f; background-color:#ffa;">{{ puzzle.rank }}.</td><td style="padding-left:10px;font-family:monospace; font-weight:bold; background-color:#ffa; font-size:18px;"><a target="_blank" rel="noopener noreferrer" href="https://lichess.org/@/${username}">{{ puzzle.username }}</a></td><td style="font-family:monospace; font-size:18px; padding:8px; font-weight:bold; color:#070;">{{ puzzle.num }}</td><td>
 	<div style="max-height:50px;overflow:scroll;">
 	{% for id in puzzle.ids %}
 	<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/{{ id }}">{{ id }}</a>
@@ -25,5 +33,9 @@ toplist page {{ page }}.
 {% endfor %}
 	
 </table>
+
+<script>
+	document.body.style.opacity = "1"
+</script>
 
 {{ macros.html_tail() }}
