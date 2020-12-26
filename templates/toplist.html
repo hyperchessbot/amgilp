@@ -20,12 +20,19 @@
 
 <hr>
 
-<table cellpadding="3" cellspacing="3" border="1">
+<table cellpadding="3" cellspacing="3">
+	<tr class="puzzle">
+		<td class="index">Index</td>
+		<td class="rank">Rank</td>
+		<td class="username">Username</td>
+		<td class="num">No</td>
+		<td>Puzzles</td>
+	</tr>
 	
 {% for puzzle in puzzles %}
 
 <tr class="puzzle" id="">
-	<td>
+	<td class="index">
 		{{ puzzle.fullIndex1 }}.
 	</td>
 	<td class="rank">
