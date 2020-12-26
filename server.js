@@ -5,6 +5,8 @@ const path = require('path')
 const fs = require('fs')
 const fetch = require('node-fetch')
 
+const serverUrl = process.env.SERVER_URL || "https://amgilp.herokuapp.com"
+
 require('nunjucks').configure('templates', {
     autoescape: false,
     express: app
@@ -119,7 +121,7 @@ app.get("/", (req, res) => {
 	
 	if(username){
 		found = lookupUsername(username)
-		logDiscord(`getpuzzles of ${username}`)
+		logDiscord(`getpuzzles of ${username} ( <${serverUrl}> )`)
 	}
 
 	res.render('nunjucks.html', {
@@ -136,7 +138,7 @@ app.get("/toplist", (req, res) => {
 	
 	if(isNaN(page)) page = 1
 		
-	logDiscord(`get toplist page ${page}`)
+	logDiscord(`get toplist page ${page} ( <${serverUrl}> )`)
 
 	getToplistPage(page).then(
 		puzzles => {
