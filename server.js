@@ -113,8 +113,39 @@ app.get('/', (req, res) => {
 	}
 })
 	
+function lookupUsername(username){
+	const matcher = new RegExp(`([0-9]+),(${username}),([0-9]+),(.*)`, "i")
+	const ups = puzzles.find(line => line.match(matcher))
+	
+	if(ups){		
+		const m = ups.match(matcher)		
+		return {
+			rank: parseInt(m[1]),
+			username: m[2],
+			num: parseInt(m[3]),
+			puzzleIds: m[4].split(" ")
+		}
+	}else{
+		return null
+	}
+}
+	
 app.get("/nunjucks", (req, res) => {
-	res.render('nunjucks.html')
+	let username = req.query.getpuzzles
+	const toplistPageStr = req.query.toplistPage
+	
+	let found = null
+	
+	if(username){
+		found = lookupUsername(username)
+	}
+		
+	res.render('nunjucks.html', {
+		username: username,
+		found: found,
+		foundJsonStr: JSON.stringify(found, null, 2),
+		toplistPageStr: toplistPageStr
+	})
 })
 
 app.use("/", express.static(path.join(__dirname, "/")))
