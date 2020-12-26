@@ -3,6 +3,7 @@ import aiohttp_jinja2
 import jinja2
 import pathlib
 import re
+import os
 
 
 BASE_DIR = pathlib.Path(__file__).parent.absolute()
@@ -49,4 +50,4 @@ def init_func(argv=None):
 
 
 if __name__ == '__main__':
-    web.run_app(init_func())
+    web.run_app(init_func(), port=int(os.environ.get("PORT", "8080")))
