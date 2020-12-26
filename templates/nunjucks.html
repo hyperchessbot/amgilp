@@ -16,7 +16,7 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 	{% if found %}
 
 		wow <b style="color:#070;">{{ found.username }}</b> has games in puzzles , rank <b style="color:#007;">{{ found.rank }}</b> , puzzles <b style="color:#707;">{{ found.num }}</b>
-		
+
 		<hr>
 
 		<table cellspacing="5" cellpadding="5" border="1">
@@ -32,18 +32,24 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 			
 		</table>
 
+		<hr>
+
 	{% else %}
 
 		meh ... , no games in puzzles for <b style="color:#700;">{{ username }}</b>
+
+		<hr>
 
 	{% endif %}
 
 {% endif %}
 
+<a href="/toplist">View toplist</a>
+
 <script>
 	function search(){
 		const username = document.getElementById("username").value
-		document.location.href=`/nunjucks/?getpuzzles=${username}`
+		document.location.href=`/?getpuzzles=${username}`
 	}
 
 	const usernameInput = document.getElementById("username")

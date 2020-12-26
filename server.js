@@ -76,6 +76,13 @@ function getToplistPage(page){
 		}else{
 			resolve(puzzles.slice(from, to).map((csv, i) => {
 				const items = csv.split(",")
+				let ids = items[3].split(" ")
+				let andMore = ""
+				const maxChunk = 10
+				if(ids.length > maxChunk){
+					andMore = `... and ${ids.length - maxChunk} other puzzle(s)`
+					ids = ids.slice(0, maxChunk)
+				}
 				return {
 					index0: i,
 					index1: i + 1,			
@@ -84,14 +91,15 @@ function getToplistPage(page){
 					rank: parseInt(items[0]),
 					username: items[1],
 					num: parseInt(items[2]),
-					ids: items[3].split(" ")
+					ids: ids,
+					andMore: andMore
 				}
 			}))
 		}
 	})
 }
 
-app.get('/', (req, res) => {
+app.get('/old', (req, res) => {
 	let username = req.query.getpuzzles
 	const toplistPageStr = req.query.toplistPage
 	
@@ -143,7 +151,7 @@ function lookupUsername(username){
 	}
 }
 	
-app.get("/nunjucks", (req, res) => {
+app.get("/", (req, res) => {
 	let username = req.query.getpuzzles
 	const toplistPageStr = req.query.toplistPage
 	
@@ -171,6 +179,7 @@ app.get("/toplist", (req, res) => {
 				page: page,
 				nextPage: page + 1,
 				prevPage: page - 1,
+				title: `Toplist Page ${page}`,
 				puzzles: puzzles
 			})
 		},

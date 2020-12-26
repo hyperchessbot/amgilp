@@ -1,3 +1,33 @@
 body {
 	background-color: #eee;
 }
+
+.puzzle .rank {
+	font-family:monospace;
+	font-size:18px;
+	text-align:center;
+	font-weight:bold;
+	color:#00f;
+	background-color:#ffa;
+}
+
+.puzzle .username {
+	padding-left:10px;
+	font-family:monospace;
+	font-weight:bold;
+	background-color:#ffa;
+	font-size:18px;
+}
+
+.puzzle .num {
+	font-family:monospace;
+	font-size:18px;
+	padding:8px;
+	font-weight:bold;
+	color:#070;
+}
+
+.andmore {
+	color: #700;
+	font-style: italic;
+}
