@@ -60,11 +60,6 @@ const TOPLIST_PAGE_SIZE = 100
 
 const puzzles = fs.readFileSync("leaderboard.csv").toString().split("\n").slice(1)
 
-function genToplistPage(records){
-	const template = fs.readFileSync(path.join(__dirname, "toplist.html")).toString().replace("xxx", "`" + records + "`")
-	return template
-}
-
 function getToplistPage(page){
 	return new Promise((resolve, reject) => {
 		const from = (page - 1) * TOPLIST_PAGE_SIZE		
@@ -98,41 +93,6 @@ function getToplistPage(page){
 		}
 	})
 }
-
-app.get('/old', (req, res) => {
-	let username = req.query.getpuzzles
-	const toplistPageStr = req.query.toplistPage
-	
-	if(username){
-		logDiscord(`getpuzzles of ${username}`)
-		
-		const matcher = new RegExp(`([0-9]+),(${username}),([0-9]+),(.*)`, "i")
-		const ups = puzzles.find(line => line.match(matcher))
-		if(ups){
-			console.log(ups)
-			const m = ups.match(matcher)
-			const rank = m[1]
-			username = m[2]
-			const num = m[3]
-			const puzzleIds = m[4].split(" ")
-			const puzzleUrls = puzzleIds.map(puzzleId => `<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/${puzzleId}">${puzzleId}</a>`).join("<br>")
-
-			res.send(`wow , <b style="color:#070">${username}</b> has games in puzzles , rank <b style="color:#00f">${rank}</b> , number of puzzles <b style="color:#707">${num}</b><hr>${puzzleUrls}`)	
-		}else{
-			res.send(`meh ... , user <b style="color: #700">${username}</b> was not found in puzzles database`)
-		}
-	}else if(toplistPageStr){		
-		logDiscord(`get toplist page ${toplistPageStr}`)
-		
-		const toplistPage = parseInt(toplistPageStr)
-		getToplistPage(toplistPage).then(
-			records => res.send(genToplistPage(records)),
-			err => res.send(err)
-		)
-	}else{
-		res.sendFile(path.join(__dirname, "index.html"))		
-	}
-})
 	
 function lookupUsername(username){
 	const matcher = new RegExp(`([0-9]+),(${username}),([0-9]+),(.*)`, "i")
@@ -159,8 +119,9 @@ app.get("/", (req, res) => {
 	
 	if(username){
 		found = lookupUsername(username)
+		logDiscord(`getpuzzles of ${username}`)
 	}
-		
+
 	res.render('nunjucks.html', {
 		username: username,
 		found: found,		
@@ -172,7 +133,11 @@ app.get("/", (req, res) => {
 app.get("/toplist", (req, res) => {
 	const pageStr = req.query.page || "1"
 	const page = parseInt(pageStr)
+	
 	if(isNaN(page)) page = 1
+		
+	logDiscord(`get toplist page ${page}`)
+
 	getToplistPage(page).then(
 		puzzles => {
 			res.render('toplist.html', {
@@ -189,6 +154,7 @@ app.get("/toplist", (req, res) => {
 	
 app.get("/puzzle", (req, res) => {
 	const id = req.query.id
+	
 	fetch(`https://lichess.org/training/${id}`).then(response => response.text().then(content => {		
 		const m = content.match("lichess.load.then...=>.LichessPuzzle.(.*)")		
 		const blob = JSON.parse(m[1].replace(")})</script></body></html>", ""))
