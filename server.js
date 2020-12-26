@@ -74,7 +74,17 @@ function getToplistPage(page){
 		if(page > maxAllowedPage){
 			reject(`toplist page out of range ( maximum allowed page is ${maxAllowedPage} ) `)						
 		}else{
-			resolve(puzzles.slice(from, to).join("\n"))
+			resolve(puzzles.slice(from, to).map((csv, i) => {
+				const items = csv.split(",")
+				return {
+					index0: i,
+					index1: i + 1,
+					rank: parseInt(items[0]),
+					username: items[1],
+					num: parseInt(items[2]),
+					ids: items[3].split(" ")
+				}
+			}))
 		}
 	})
 }
@@ -147,6 +157,21 @@ app.get("/nunjucks", (req, res) => {
 		foundJsonStr: JSON.stringify(found, null, 2),
 		toplistPageStr: toplistPageStr
 	})
+})
+	
+app.get("/toplist", (req, res) => {
+	const pageStr = req.query.page || "1"
+	const page = parseInt(pageStr)
+	if(isNaN(page)) page = 1
+	getToplistPage(page).then(
+		puzzles => {
+			res.render('toplist.html', {
+				page: page,
+				puzzles: puzzles
+			})
+		},
+		err => res.send(err)
+	)
 })
 	
 app.get("/puzzle", (req, res) => {

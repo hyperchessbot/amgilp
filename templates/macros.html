@@ -1,0 +1,18 @@
+{% macro html_head(title) -%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="public/styles/app.css">
+<title>{{ title }}</title>    
+</head>
+<body>
+	
+{%- endmacro -%}
+
+{% macro html_tail() -%}
+	
+</body></html>
+	
+{%- endmacro -%}

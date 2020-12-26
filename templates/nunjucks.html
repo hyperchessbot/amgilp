@@ -1,3 +1,7 @@
+{% import 'macros.html' as macros %}
+
+{{ macros.html_head("nunjucks") }}
+
 <script>
 	const found = {{ foundJsonStr }}
 </script>
@@ -70,3 +74,5 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 		}
 	}, 100)
 </script>
+
+{{ macros.html_tail() }}
