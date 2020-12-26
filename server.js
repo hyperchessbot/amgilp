@@ -77,7 +77,7 @@ function getToplistPage(page){
 				let andMore = ""
 				const maxChunk = 10
 				if(ids.length > maxChunk){
-					andMore = `... and ${ids.length - maxChunk} other puzzle(s)`
+					andMore = `... and ${ids.length - maxChunk} more puzzle(s)`
 					ids = ids.slice(0, maxChunk)
 				}
 				return {

@@ -1,3 +1,17 @@
+.header {
+	padding: 5px;
+	background-color: #eee;
+}
+
+.article {
+	padding: 10px;
+}
+
+.footer {
+	padding: 5px;
+	background-color: #eee;
+}
+
 .puzzle .index {
 	font-family: monospace;
 	font-style: italic;
