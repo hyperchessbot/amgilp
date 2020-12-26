@@ -78,7 +78,7 @@ app.get('/', (req, res) => {
 	const toplistPageStr = req.query.toplistPage
 	
 	if(username){
-		logDiscord(`getpuzzles of ${username}`)
+		logDiscord(`getpuzzles of ${username} ( <https://amgilp.herokuapp.com> )`)
 		
 		const matcher = new RegExp(`([0-9]+),(${username}),([0-9]+),(.*)`, "i")
 		const ups = puzzles.find(line => line.match(matcher))
@@ -110,6 +110,6 @@ app.get('/', (req, res) => {
 
 app.use("/", express.static(path.join(__dirname, "/")))
 
-app.listen(PORT, () => {
-  console.log(`amgilp server listening at ${PORT}`)
+app.listen(PORT, _ => {
+	console.log(`amgilp server listening at ${PORT}`)
 })

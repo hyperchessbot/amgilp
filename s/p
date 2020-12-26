@@ -1,0 +1,7 @@
+git add .
+
+git commit -m "$*"
+
+git push github nunjucks
+
+git push gitlab nunjucks
