@@ -1,3 +1,7 @@
+<script>
+	const found = {{ foundJsonStr }}
+</script>
+
 Username <input type="text" id="username" value="{{ username }}"></input>
 <button onclick="search();">Search</button>
 
@@ -11,11 +15,18 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 		
 		<hr>
 
+		<table cellspacing="5" cellpadding="5" border="1">
+
 		{% for id in found.puzzleIds %}
 
-		<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/{{ id }}">{{ id }}</a><br>
+		<tr>
+			<td><a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/{{ id }}">{{ id }}</a></td>
+			<td id="{{ id }}">loading game data ...</td>
+		</tr>
 
 		{% endfor %}
+			
+		</table>
 
 	{% else %}
 
@@ -41,5 +52,21 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 	setTimeout(_ => {
 		usernameInput.select()
 		usernameInput.focus()
+		
+		if(found){
+			for(let i = 0; i < found.puzzleIds.length; i++){
+				setTimeout(_ => {
+					const id = found.puzzleIds[i]
+					fetch(`/puzzle/?id=${id}`).then(response => response.json().then(blob => {
+						const data = blob.data
+						const game = data.game
+						const players = game.players
+						//console.log(blob)
+						const playersData = players.map(player => player.name).join(" - ")
+						document.getElementById(id).innerHTML = playersData
+					}))					
+				}, i * 2000)
+			}
+		}
 	}, 100)
 </script>

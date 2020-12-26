@@ -3,9 +3,10 @@ const app = express()
 const PORT = parseInt(process.env.PORT || 3000)
 const path = require('path')
 const fs = require('fs')
+const fetch = require('node-fetch')
 
 require('nunjucks').configure('templates', {
-    autoescape: true,
+    autoescape: false,
     express: app
 })
 
@@ -142,10 +143,20 @@ app.get("/nunjucks", (req, res) => {
 		
 	res.render('nunjucks.html', {
 		username: username,
-		found: found,
+		found: found,		
 		foundJsonStr: JSON.stringify(found, null, 2),
 		toplistPageStr: toplistPageStr
 	})
+})
+	
+app.get("/puzzle", (req, res) => {
+	const id = req.query.id
+	fetch(`https://lichess.org/training/${id}`).then(response => response.text().then(content => {		
+		const m = content.match("lichess.load.then...=>.LichessPuzzle.(.*)")		
+		const blob = JSON.parse(m[1].replace(")})</script></body></html>", ""))
+		const blobJson = JSON.stringify(blob, null, 2)
+		res.send(blobJson)
+	}))
 })
 
 app.use("/", express.static(path.join(__dirname, "/")))
