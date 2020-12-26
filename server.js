@@ -4,7 +4,9 @@ const PORT = parseInt(process.env.PORT || 3000)
 const path = require('path')
 const fs = require('fs')
 
-require('dotenv').config()
+try{
+	require('dotenv').config()	
+}catch(err){}
 
 console.log(process.env)
 
