@@ -4,6 +4,11 @@ const PORT = parseInt(process.env.PORT || 3000)
 const path = require('path')
 const fs = require('fs')
 
+require('nunjucks').configure('templates', {
+    autoescape: true,
+    express: app
+})
+
 try{
 	require('dotenv').config()	
 }catch(err){}
@@ -106,6 +111,10 @@ app.get('/', (req, res) => {
 	}else{
 		res.sendFile(path.join(__dirname, "index.html"))		
 	}
+})
+	
+app.get("/nunjucks", (req, res) => {
+	res.render('nunjucks.html')
 })
 
 app.use("/", express.static(path.join(__dirname, "/")))
