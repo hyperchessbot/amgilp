@@ -20,13 +20,17 @@ method: `GET`
 
 ### url parameters
 
-`users`: comma separated list of usernames
+`usernames`: comma separated list of usernames
 
 response:
 
 `status`: `ok` for success, error message otherwise
 
 `records`: array of user records
+
+example:
+
+https://amgilp.herokuapp.com/api/users/?usernames=thibault,foytik
 
 ## API - Toplist
 
@@ -43,6 +47,10 @@ response:
 `status`: `ok` for success, error message otherwise
 
 `records`: array of toplist records
+
+example:
+
+https://amgilp.herokuapp.com/api/toplist/?page=250
 
 # honours
 
