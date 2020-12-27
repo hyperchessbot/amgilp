@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const PORT = parseInt(process.env.PORT || 3000)
+const PORT = parseInt(process.env.PORT || "3000")
 const path = require('path')
 const fs = require('fs')
 const fetch = require('node-fetch')
@@ -86,12 +86,15 @@ puzzles.forEach(puzzle => {
 
 fs.writeFileSync("strsim/usernames.txt", Object.keys(usernames).map(username => usernames[username].username).join("\n"))
 
+///////////////////////////////////////////////////////////////////////
+
 function getToplistPage(page, all){
 	return new Promise((resolve, reject) => {
 		const from = (page - 1) * TOPLIST_PAGE_SIZE		
 		const len = puzzles.length
 		const to = Math.min(page * TOPLIST_PAGE_SIZE, len)
 		const maxAllowedPage = Math.floor(len / TOPLIST_PAGE_SIZE)
+		
 		if(page > maxAllowedPage){
 			reject(`toplist page out of range ( maximum allowed page is ${maxAllowedPage} )`)						
 		}else{
@@ -100,10 +103,12 @@ function getToplistPage(page, all){
 				let ids = items[3].split(" ")
 				let andMore = ""
 				const maxChunk = all ? 10000 : 10
+				
 				if(ids.length > maxChunk){
 					andMore = `... and ${ids.length - maxChunk} more puzzle(s)`
 					ids = ids.slice(0, maxChunk)
 				}
+				
 				return {
 					index0: i,
 					index1: i + 1,			
@@ -133,18 +138,16 @@ function getBestMatch(username, found){return new Promise(resolve => {
 		return 
 	}
 	
-	else {
-		const cwd = `${path.join(__dirname, "strsim")}`
-		const command = `${cwd}/strsim ${username}`
-		console.log(command)
-		exec(command, {
-			cwd: cwd
-		}, (error, stdout, stderr) => {
-			console.log("stdout", stdout)
-			const matches = JSON.parse(stdout)
-			resolve(matches[matches.length - 1])
-		})
-	}
+	const cwd = `${path.join(__dirname, "strsim")}`
+	const command = `${cwd}/strsim ${username}`
+		
+	exec(command, {
+		cwd: cwd
+	}, (error, stdout, stderr) => {		
+		const matches = JSON.parse(stdout)
+		
+		resolve(matches[matches.length - 1])
+	})
 })}
 	
 app.get('/', (req, res) => {
@@ -207,11 +210,11 @@ app.get("/toplist", (req, res) => {
 })
 
 app.get('/api/toplist', (req, res) => {
+	res.set('Content-Type', 'application/json')
+	
 	const page = getQueryPage(req)
 	
 	logDiscord(`api get toplist page ${page} ( <${serverUrl}> )`)
-	
-	res.set('Content-Type', 'application/json')
 	
 	getToplistPage(page, true).then(
 		records => {
@@ -230,6 +233,8 @@ app.get('/api/toplist', (req, res) => {
 })
 
 app.get('/api/users', (req, res) => {
+	res.set('Content-Type', 'application/json')
+	
 	if(!req.query.usernames){
 		res.send(JSON.stringify({
 			status: "usernames required",
@@ -244,8 +249,6 @@ app.get('/api/users', (req, res) => {
 	logDiscord(`api get users ${search} ( <${serverUrl}> )`)
 	
 	const records = search.map(username => usernames[username.toLowerCase()]).filter(item => typeof item != "undefined")
-	
-	res.set('Content-Type', 'application/json')
 	
 	res.send(JSON.stringify({
 		status: "ok",
