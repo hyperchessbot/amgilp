@@ -161,7 +161,7 @@ app.get("/", (req, res) => {
 	
 	getBestMatch(username).then(bestMatch => {
 		found = lookupUsername(username)
-		logDiscord(`getpuzzles of ${username} ( <${serverUrl}> )`)
+		if(username) logDiscord(`getpuzzles of ${username} ( <${serverUrl}> )`)
 		res.render('nunjucks.html', {
 			username: username,
 			found: found,		
