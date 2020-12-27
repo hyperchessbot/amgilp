@@ -121,7 +121,11 @@ function getToplistPage(page, all){
 }
 	
 function getBestMatch(username, found){return new Promise(resolve => {	
-	if(!username) resolve(null)
+	if(!username){
+		resolve(null)
+		
+		return
+	}
 	
 	if(found) resolve(found.username)
 	
