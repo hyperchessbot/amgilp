@@ -65,6 +65,8 @@ const puzzles = fs.readFileSync("leaderboard.csv").toString().split("\n").slice(
 
 const usernames = puzzles.map(puzzle => puzzle.split(",")[1]).filter(item => item)
 
+fs.writeFileSync("strsim/usernames.txt", usernames.join("\n"))
+
 function getToplistPage(page){
 	return new Promise((resolve, reject) => {
 		const from = (page - 1) * TOPLIST_PAGE_SIZE		
