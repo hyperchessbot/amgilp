@@ -127,7 +127,11 @@ function getBestMatch(username, found){return new Promise(resolve => {
 		return
 	}
 	
-	if(found) resolve(found.username)
+	if(found){
+		resolve(found.username)
+		
+		return 
+	}
 	
 	else {
 		const cwd = `${path.join(__dirname, "strsim")}`
