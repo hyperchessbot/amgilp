@@ -7,6 +7,11 @@
 	padding: 10px;
 }
 
+.api {
+	padding: 5px;
+	background-color: #ffe;
+}
+
 .footer {
 	padding: 5px;
 	background-color: #eee;
