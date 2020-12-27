@@ -10,7 +10,7 @@
 
 {% if prevPage %}
 
-<a href="/toplist?page={{ prevPage }}">Previous page</a> | 
+	<a href="/toplist?page={{ prevPage }}">Previous page</a> | 
 
 {% endif %}
 
@@ -31,31 +31,61 @@
 	
 {% for puzzle in puzzles %}
 
-<tr class="puzzle" id="">
-	<td class="index">
-		{{ puzzle.fullIndex1 }}.
-	</td>
-	<td class="rank">
-		{{ puzzle.rank }}.
-	</td>
-	<td class="username">
-		<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/@/{{ puzzle.username }}">
-			{{ puzzle.username }}
-		</a>
-	</td>
-	<td class="num">
-		{{ puzzle.num }}
-	</td>
-	<td>
-		<div class="puzzlesdiv">
-			{% for id in puzzle.ids %}
-				<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/{{ id }}">{{ id }}</a>
-			{% endfor %}
+	<tr class="puzzle" id="">
+		
+		<td class="index">
 			
-			<a target="_blank" rel="noopener noreferrer" href="/?getpuzzles={{ puzzle.username }}"><span class="andmore">{{ puzzle.andMore }}</span></a>
-		</div>
-	</td>
-</tr>
+			{{ puzzle.fullIndex1 }}.
+			
+		</td>
+		
+		<td class="rank">
+			
+			{{ puzzle.rank }}.
+			
+		</td>
+		
+		<td class="username">
+			
+			<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/@/{{ puzzle.username }}">
+				
+				{{ puzzle.username }}
+				
+			</a>
+			
+		</td>
+		
+		<td class="num">
+			
+			{{ puzzle.num }}
+			
+		</td>
+		
+		<td>
+			
+			<div class="puzzlesdiv">
+				
+				{% for id in puzzle.ids %}
+					<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/{{ id }}">
+						
+						{{ id }}
+						
+					</a>
+				{% endfor %}
+
+				<a target="_blank" rel="noopener noreferrer" href="/?getpuzzles={{ puzzle.username }}">
+					<span class="andmore">
+						
+						{{ puzzle.andMore }}
+						
+					</span>
+				</a>
+				
+			</div>
+			
+		</td>
+		
+	</tr>
 
 {% endfor %}
 	

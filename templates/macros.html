@@ -2,39 +2,64 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="/public/styles/app.css">
-<title>{{ title }}</title>    
-</head>
-<body>
 	
-<div class="header">
-Based on and using the collected data of wonderful project <a target="_blank" rel="noopener noreferrer" href="https://github.com/kraktus/AreMyGamesInLichessPuzzles">github.com/kraktus/AreMyGamesInLichessPuzzles</a> .
-</div>
+	<head>
+		
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="/public/styles/app.css">
+		
+		<title>{{ title }}</title>    
+		
+	</head>
 	
-<hr>
+	<body>
 	
-<div class="article">
+		<div class="header">
+			Based on and using the collected data of wonderful project 
+			<a target="_blank" rel="noopener noreferrer" href="https://github.com/kraktus/AreMyGamesInLichessPuzzles">
+				github.com/kraktus/AreMyGamesInLichessPuzzles
+			</a> 
+			.
+		</div>
+
+		<hr>
+
+		<div class="article">
+
 {%- endmacro -%}
 
 {% macro html_tail() -%}
-</div>
-	
-<hr>
+			
+		</div>
 
-<div class="api">
-Please don't use the UI for bulk queries, consider using the API instead, see
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/hyperchessbot/amgilp#API">API Documentation</a> .
-</div>
-	
-<hr>
-	
-<div class="footer">
-Discussion / Feedback <a target="_blank" rel="noopener noreferrer" href="https://discord.gg/8m3Muay">Hyperbot Discord</a> | 
-Source <a target="_blank" rel="noopener noreferrer" href="https://github.com/hyperchessbot/amgilp">github.com/hyperchessbot/amgilp</a>
-</div>
-	
-</body></html>
+		<hr>
+
+		<div class="api">
+			Please don't use the UI for bulk queries, consider using the API instead, see
+			<a target="_blank" rel="noopener noreferrer" href="https://github.com/hyperchessbot/amgilp#API">
+				API Documentation
+			</a>
+			.
+		</div>
+
+		<hr>
+
+		<div class="footer">
+
+			Discussion / Feedback 
+			<a target="_blank" rel="noopener noreferrer" href="https://discord.gg/8m3Muay">
+				Hyperbot Discord
+			</a>
+			| 
+			Source 
+			<a target="_blank" rel="noopener noreferrer" href="https://github.com/hyperchessbot/amgilp">
+				github.com/hyperchessbot/amgilp
+			</a>
+
+		</div>
+
+	</body>
+
+</html>
 	
 {%- endmacro -%}

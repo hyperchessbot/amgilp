@@ -10,7 +10,8 @@
 
 <hr>
 
-Username <input type="text" id="username" value="{{ username }}"></input>
+Username 
+<input type="text" id="username" value="{{ username }}"></input>
 <button onclick="search();">Search</button>
 
 <hr>
@@ -19,7 +20,12 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 
 	{% if found %}
 
-		wow , <span class="foundusername">{{ found.username }}</span> has games in puzzles , rank <span class="foundrank">{{ found.rank }}</span> , puzzles <span class="foundnum">{{ found.num }}</span>
+		wow , 
+		<span class="foundusername">{{ found.username }}</span> 
+		has games in puzzles , rank 
+		<span class="foundrank">{{ found.rank }}</span> 
+		, puzzles 
+		<span class="foundnum">{{ found.num }}</span>
 
 		<hr>
 
@@ -27,11 +33,29 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 
 		{% for id in found.puzzleIds %}
 
-		<tr>
-			<td><a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/{{ id }}">{{ id }}</a></td>
-			<td class="gamedata" id="gamedata{{ id }}">loading game data ...</td>
-			<td id="pgn{{ id }}">loading moves ...</td>
-		</tr>
+			<tr>
+
+				<td class="showpuzzle">
+					
+					puzzle
+					
+					<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/{{ id }}">{{ id }}</a>
+					
+				</td>
+
+				<td class="gamedata" id="gamedata{{ id }}">
+					
+					loading game data ...
+					
+				</td>
+
+				<td class="gamemoves" id="pgn{{ id }}">
+					
+					loading moves ...
+					
+				</td>
+
+			</tr>
 
 		{% endfor %}
 			
@@ -41,11 +65,15 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 
 	{% else %}
 
-		meh ... , <span class="notfoundusername">{{ username }}</span> has no games in puzzles
+		meh ... , 
+		<span class="notfoundusername">{{ username }}</span> 
+		has no games in puzzles
 
 		<hr>
 
-		did you mean <a href="/?getpuzzles={{ bestMatch }}">{{ bestMatch }}</a> ?
+		did you mean 
+		<a href="/?getpuzzles={{ bestMatch }}">{{ bestMatch }}</a> 
+		?
 
 		<hr>
 
@@ -53,7 +81,9 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 
 {% endif %}
 
-<a href="/toplist">View toplist</a>
+<a href="/toplist">
+	View toplist
+</a>
 
 <script>
 	function search(){

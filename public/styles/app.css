@@ -88,8 +88,25 @@
 	font-weight: bold;
 }
 
+.showpuzzle {
+	font-family: monospace;
+	font-size: 16px;	
+	padding: 15px;
+	border-style: solid;
+	border-color: #aaa;
+	min-width: 120px;
+	text-align: center;
+}
+
 .gamedata {
+	font-family: monospace;
+	font-size: 16px;
 	min-width: 350px;
+}
+
+.gamemoves {
+	font-family: monospace;
+	font-size: 11px;
 }
 
 .puzzlehead {
