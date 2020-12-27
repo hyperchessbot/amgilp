@@ -93,7 +93,7 @@ function getToplistPage(page, all){
 		const to = Math.min(page * TOPLIST_PAGE_SIZE, len)
 		const maxAllowedPage = Math.floor(len / TOPLIST_PAGE_SIZE)
 		if(page > maxAllowedPage){
-			reject(`toplist page out of range ( maximum allowed page is ${maxAllowedPage} ) `)						
+			reject(`toplist page out of range ( maximum allowed page is ${maxAllowedPage} )`)						
 		}else{
 			resolve(puzzles.slice(from, to).map((csv, i) => {
 				const items = csv.split(",")
@@ -217,16 +217,28 @@ app.get('/api/toplist', (req, res) => {
 		records => {
 			res.send(JSON.stringify({
 				status: "ok",
+				page: page,
 				records: records
 			}))
 		},
 		err => res.send(JSON.stringify({
-			status: err
+			status: err,
+			page: page,
+			records: []
 		}))
 	)
 })
 
 app.get('/api/users', (req, res) => {
+	if(!req.query.usernames){
+		res.send(JSON.stringify({
+			status: "usernames required",
+			records: []
+		}))
+		
+		return
+	}
+	
 	const search = req.query.usernames.split(",")
 	
 	logDiscord(`api get users ${search} ( <${serverUrl}> )`)
@@ -250,6 +262,10 @@ app.get("/puzzle", (req, res) => {
 		const blobJson = JSON.stringify(blob, null, 2)
 		res.send(blobJson)
 	}))
+})
+
+app.get('/api', (req, res) => {
+	res.redirect("https://github.com/hyperchessbot/amgilp#api")
 })
 
 app.use("/", express.static(path.join(__dirname, "/")))

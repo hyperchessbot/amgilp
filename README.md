@@ -20,7 +20,7 @@ method: `GET`
 
 ### url parameters
 
-`usernames`: comma separated list of usernames
+`usernames`: comma separated list of usernames ( required )
 
 response:
 
@@ -40,7 +40,7 @@ method: `GET`
 
 ### url parameters
 
-`page`: toplist page ( 100 records per page )
+`page`: toplist page ( 100 records per page ) ( optional, default = 1 )
 
 response:
 
