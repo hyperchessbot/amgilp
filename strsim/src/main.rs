@@ -12,8 +12,6 @@ fn main() {
         .split("\n")
         .map(|x| x.to_owned())
         .collect();
-
-	println!("{} usernames read", usernames.len());
 	
 	let mut best_dist = 0.0;	
 	

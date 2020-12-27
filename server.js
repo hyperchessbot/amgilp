@@ -5,6 +5,7 @@ const path = require('path')
 const fs = require('fs')
 const fetch = require('node-fetch')
 const stringSimilarity = require('string-similarity')
+const exec = require('child_process').exec
 
 const serverUrl = process.env.SERVER_URL || "https://amgilp.herokuapp.com"
 
@@ -117,6 +118,22 @@ function lookupUsername(username){
 		return null
 	}
 }
+
+function getBestMatch(username){return new Promise(resolve => {
+	if(!username) resolve(null)
+	else {
+		const cwd = `${path.join(__dirname, "strsim")}`
+		const command = `${cwd}/strsim ${username}`
+		console.log(command)
+		exec(command, {
+			cwd: cwd
+		}, (error, stdout, stderr) => {
+			console.log("stdout", stdout)
+			const matches = JSON.parse(stdout)
+			resolve(matches[matches.length - 1])
+		})
+	}
+})}
 	
 app.get("/", (req, res) => {
 	let username = req.query.getpuzzles
@@ -130,7 +147,7 @@ app.get("/", (req, res) => {
 	
 	let found = null
 	
-	let bestMatch = username
+	/*let bestMatch = username
 	
 	if(username){
 		found = lookupUsername(username)
@@ -140,16 +157,20 @@ app.get("/", (req, res) => {
 			console.log(result.bestMatch)
 			bestMatch = result.bestMatch.target
 		}
-	}
-
-	res.render('nunjucks.html', {
-		username: username,
-		found: found,		
-		foundJsonStr: JSON.stringify(found, null, 2),		
-		bestMatch: bestMatch
+	}*/
+	
+	getBestMatch(username).then(bestMatch => {
+		found = lookupUsername(username)
+		logDiscord(`getpuzzles of ${username} ( <${serverUrl}> )`)
+		res.render('nunjucks.html', {
+			username: username,
+			found: found,		
+			foundJsonStr: JSON.stringify(found, null, 2),		
+			bestMatch: bestMatch
+		})
 	})
 })
-	
+
 app.get("/toplist", (req, res) => {
 	const pageStr = req.query.page || "1"
 	const page = parseInt(pageStr)
