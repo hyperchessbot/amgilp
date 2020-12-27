@@ -59,8 +59,12 @@
 }
 
 .puzzles {
+	font-family: monospace;
+	font-size: 20px;
+	font-weight: bold;
 	color: #00f;
 	text-align: center;
+	background-color: #eee;
 }
 
 .aremygames {
@@ -114,6 +118,7 @@
 }
 
 .puzzlesdiv {
+	font-family: monospace;
 	max-height: 50px;
 	overflow:scroll;
 }

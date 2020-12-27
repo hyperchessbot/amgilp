@@ -3,16 +3,28 @@
 {{ macros.html_head("amgilp - Are my games in lichess puzzles ?") }}
 
 <script>
+	
 	const found = {{ foundJsonStr }}
+	
 </script>
 
-<span class="aremygames">Are my games in lichess puzzles ?</span>
+<span class="aremygames">
+	
+	Are my games in lichess puzzles ?
+	
+</span>
 
 <hr>
 
 Username 
+
 <input type="text" id="username" value="{{ username }}"></input>
-<button onclick="search();">Search</button>
+
+<button onclick="search();">
+	
+	Search
+	
+</button>
 
 <hr>
 
@@ -21,11 +33,28 @@ Username
 	{% if found %}
 
 		wow , 
-		<span class="foundusername">{{ found.username }}</span> 
+
+		<span class="foundusername">
+			
+			{{ found.username }}
+			
+		</span> 
+
 		has games in puzzles , rank 
-		<span class="foundrank">{{ found.rank }}</span> 
+
+		<span class="foundrank">
+			
+			{{ found.rank }}
+
+		</span> 
+
 		, puzzles 
-		<span class="foundnum">{{ found.num }}</span>
+
+		<span class="foundnum">
+			
+			{{ found.num }}
+
+		</span>
 
 		<hr>
 
@@ -66,13 +95,25 @@ Username
 	{% else %}
 
 		meh ... , 
-		<span class="notfoundusername">{{ username }}</span> 
+
+		<span class="notfoundusername">
+			
+			{{ username }}
+			
+		</span> 
+
 		has no games in puzzles
 
 		<hr>
 
 		did you mean 
-		<a href="/?getpuzzles={{ bestMatch }}">{{ bestMatch }}</a> 
+
+		<a href="/?getpuzzles={{ bestMatch }}">
+			
+			{{ bestMatch }}
+
+		</a> 
+
 		?
 
 		<hr>
@@ -82,7 +123,9 @@ Username
 {% endif %}
 
 <a href="/toplist">
+	
 	View toplist
+	
 </a>
 
 <script>
