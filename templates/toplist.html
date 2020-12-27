@@ -21,7 +21,7 @@
 <hr>
 
 <table cellpadding="3" cellspacing="3">
-	<tr class="puzzle" style="background-color:#eee;">
+	<tr class="puzzle" class="puzzlehead">
 		<td class="index">Index</td>
 		<td class="rank">Rank</td>
 		<td class="username">Username</td>
@@ -47,7 +47,7 @@
 		{{ puzzle.num }}
 	</td>
 	<td>
-		<div style="max-height:50px;overflow:scroll;">
+		<div class="puzzlesdiv">
 			{% for id in puzzle.ids %}
 				<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/{{ id }}">{{ id }}</a>
 			{% endfor %}

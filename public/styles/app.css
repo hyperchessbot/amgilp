@@ -21,35 +21,35 @@
 	font-family: monospace;
 	font-style: italic;
 	color: #00a;
-	text-align:center;
+	text-align: center;
 }
 
 .puzzle .rank {
-	font-family:monospace;
-	font-size:20px;
-	text-align:center;
-	font-weight:bold;
-	color:#00f;
-	background-color:#ffa;
-	text-align:center;
+	font-family: monospace;
+	font-size: 20px;
+	text-align: center;
+	font-weight: bold;
+	color: #00f;
+	background-color: #ffa;
+	text-align: center;
 }
 
 .puzzle .username {
-	padding-left:10px;
-	padding-right:10px;
-	font-family:monospace;
-	font-weight:bold;
-	background-color:#ffa;
-	font-size:20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-family: monospace;
+	font-weight: bold;
+	background-color: #ffa;
+	font-size: 20px;
 	color: #00f;
 }
 
 .puzzle .num {
 	font-family:monospace;
-	font-size:20px;
-	padding:8px;
-	font-weight:bold;
-	color:#070;
+	font-size: 20px;
+	padding: 8px;
+	font-weight: bold;
+	color: #070;
 	text-align:center;
 }
 
@@ -61,4 +61,42 @@
 .puzzles {
 	color: #00f;
 	text-align: center;
+}
+
+.aremygames {
+	color: #070;
+	font-weight: bold;
+}
+
+.foundusername {
+	color: #070;
+	font-weight: bold;
+}
+
+.notfoundusername {
+	color: #700;
+	font-weight: bold;
+}
+
+.foundrank {
+	color: #007;
+	font-weight: bold;
+}
+
+.foundnum {
+	color: #707;
+	font-weight: bold;
+}
+
+.gamedata {
+	min-width: 350px;
+}
+
+.puzzlehead {
+	background-color: #eee;
+}
+
+.puzzlesdiv {
+	max-height: 50px;
+	overflow:scroll;
 }
