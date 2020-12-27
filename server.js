@@ -62,11 +62,29 @@ function logDiscord(msg){
 
 const TOPLIST_PAGE_SIZE = 100
 
-const puzzles = fs.readFileSync("leaderboard.csv").toString().split("\n").slice(1)
+const puzzles = fs.readFileSync("leaderboard.csv").toString().replace(/\r/g, "").split("\n").slice(1)
 
-const usernames = puzzles.map(puzzle => puzzle.split(",")[1]).filter(item => item)
+const usernames = {}
 
-fs.writeFileSync("strsim/usernames.txt", usernames.join("\n"))
+let i = 0
+puzzles.forEach(puzzle => {
+	const [rank, username, num, ids] =  puzzle.split(",")
+	
+	if(username){
+		usernames[username.toLowerCase()] = {
+			fullIndex0: i,
+			fullIndex1: i + 1,			
+			username: username,
+			rank: parseInt(rank),
+			num: parseInt(num),
+			puzzleIds: ids.split(" ")
+		}
+	}
+	
+	i++
+})
+
+fs.writeFileSync("strsim/usernames.txt", Object.keys(usernames).map(username => usernames[username].username).join("\n"))
 
 function getToplistPage(page, all){
 	return new Promise((resolve, reject) => {
@@ -102,25 +120,11 @@ function getToplistPage(page, all){
 	})
 }
 	
-function lookupUsername(username){
-	const matcher = new RegExp(`([0-9]+),(${username}),([0-9]+),(.*)`, "i")
-	const ups = puzzles.find(line => line.match(matcher))
-	
-	if(ups){		
-		const m = ups.match(matcher)		
-		return {
-			rank: parseInt(m[1]),
-			username: m[2],
-			num: parseInt(m[3]),
-			puzzleIds: m[4].split(" ")
-		}
-	}else{
-		return null
-	}
-}
-
-function getBestMatch(username){return new Promise(resolve => {
+function getBestMatch(username, found){return new Promise(resolve => {	
 	if(!username) resolve(null)
+	
+	if(found) resolve(found.username)
+	
 	else {
 		const cwd = `${path.join(__dirname, "strsim")}`
 		const command = `${cwd}/strsim ${username}`
@@ -135,7 +139,7 @@ function getBestMatch(username){return new Promise(resolve => {
 	}
 })}
 	
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
 	let username = req.query.getpuzzles
 	const toplistPageStr = req.query.toplistPage
 	
@@ -147,21 +151,13 @@ app.get("/", (req, res) => {
 	
 	let found = null
 	
-	/*let bestMatch = username
+	if(username) found = usernames[username.toLowerCase()]
 	
-	if(username){
-		found = lookupUsername(username)
-		logDiscord(`getpuzzles of ${username} ( <${serverUrl}> )`)
-		if(!found){			
-			const result = stringSimilarity.findBestMatch(username, usernames)
-			console.log(result.bestMatch)
-			bestMatch = result.bestMatch.target
+	getBestMatch(username, found).then(bestMatch => {
+		if(username){
+			logDiscord(`getpuzzles of ${username} ( <${serverUrl}> )`)
 		}
-	}*/
-	
-	getBestMatch(username).then(bestMatch => {
-		found = lookupUsername(username)
-		if(username) logDiscord(`getpuzzles of ${username} ( <${serverUrl}> )`)
+		
 		res.render('nunjucks.html', {
 			username: username,
 			found: found,		
@@ -220,6 +216,21 @@ app.get('/api/toplist', (req, res) => {
 			status: err
 		}))
 	)
+})
+
+app.get('/api/users', (req, res) => {
+	const search = req.query.usernames.split(",")
+	
+	logDiscord(`api get users ${search} ( <${serverUrl}> )`)
+	
+	const records = search.map(username => usernames[username.toLowerCase()]).filter(item => typeof item != "undefined")
+	
+	res.set('Content-Type', 'application/json')
+	
+	res.send(JSON.stringify({
+		status: "ok",
+		records: records
+	}))
 })
 	
 app.get("/puzzle", (req, res) => {

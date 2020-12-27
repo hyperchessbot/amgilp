@@ -29,7 +29,7 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 
 		<tr>
 			<td><a target="_blank" rel="noopener noreferrer" href="https://lichess.org/training/{{ id }}">{{ id }}</a></td>
-			<td style="min-width: 350px;" id="{{ id }}">loading game data ...</td>
+			<td style="min-width: 350px;" id="gamedata{{ id }}">loading game data ...</td>
 			<td id="pgn{{ id }}">loading moves ...</td>
 		</tr>
 
@@ -76,13 +76,15 @@ Username <input type="text" id="username" value="{{ username }}"></input>
 			for(let i = 0; i < found.puzzleIds.length; i++){
 				setTimeout(_ => {
 					const id = found.puzzleIds[i]
-					fetch(`/puzzle/?id=${id}`).then(response => response.json().then(blob => {
+					fetch(`/puzzle/?id=${id}`).then(response => response.json().then(blob => {						
 						const data = blob.data
 						const game = data.game						
 						const players = game.players						
 						const playersData = players.map(player => player.name).join(" - ")
-						document.getElementById(id).innerHTML = `<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/${game.id}">${playersData} ${game.clock}</a>`
-						document.getElementById("pgn" + id).innerHTML = game.pgn
+						const gde = document.querySelector("#gamedata" + id)												
+						if(gde) gde.innerHTML = `<a target="_blank" rel="noopener noreferrer" href="https://lichess.org/${game.id}">${playersData} ${game.clock}</a>`
+						const pgne = document.querySelector("#pgn" + id)						
+						if(pgne) pgne.innerHTML = game.pgn
 					}))					
 				}, i * 2000)
 			}
