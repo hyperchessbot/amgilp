@@ -68,7 +68,7 @@ const usernames = puzzles.map(puzzle => puzzle.split(",")[1]).filter(item => ite
 
 fs.writeFileSync("strsim/usernames.txt", usernames.join("\n"))
 
-function getToplistPage(page){
+function getToplistPage(page, all){
 	return new Promise((resolve, reject) => {
 		const from = (page - 1) * TOPLIST_PAGE_SIZE		
 		const len = puzzles.length
@@ -81,7 +81,7 @@ function getToplistPage(page){
 				const items = csv.split(",")
 				let ids = items[3].split(" ")
 				let andMore = ""
-				const maxChunk = 10
+				const maxChunk = all ? 10000 : 10
 				if(ids.length > maxChunk){
 					andMore = `... and ${ids.length - maxChunk} more puzzle(s)`
 					ids = ids.slice(0, maxChunk)
@@ -95,7 +95,7 @@ function getToplistPage(page){
 					username: items[1],
 					num: parseInt(items[2]),
 					ids: ids,
-					andMore: andMore
+					andMore: andMore || undefined
 				}
 			}))
 		}
@@ -171,11 +171,20 @@ app.get("/", (req, res) => {
 	})
 })
 
+function determinePage(pageStr){	
+	if(!pageStr) return 1
+	const page = parseInt(pageStr)	
+	if(isNaN(page)) return 1
+	if(page < 1) return 1
+	return page
+}
+
+function getQueryPage(req){
+	return determinePage(req.query.page)
+}
+
 app.get("/toplist", (req, res) => {
-	const pageStr = req.query.page || "1"
-	const page = parseInt(pageStr)
-	
-	if(isNaN(page)) page = 1
+	const page = getQueryPage(req)
 		
 	logDiscord(`get toplist page ${page} ( <${serverUrl}> )`)
 
@@ -190,6 +199,26 @@ app.get("/toplist", (req, res) => {
 			})
 		},
 		err => res.send(err)
+	)
+})
+
+app.get('/api/toplist', (req, res) => {
+	const page = getQueryPage(req)
+	
+	logDiscord(`api get toplist page ${page} ( <${serverUrl}> )`)
+	
+	res.set('Content-Type', 'application/json')
+	
+	getToplistPage(page, true).then(
+		records => {
+			res.send(JSON.stringify({
+				status: "ok",
+				records: records
+			}))
+		},
+		err => res.send(JSON.stringify({
+			status: err
+		}))
 	)
 })
 	
