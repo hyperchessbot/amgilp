@@ -15,6 +15,22 @@
 .footer {
 	padding: 5px;
 	background-color: #eee;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.bottomlink {
+	padding: 3px;
+	background-color: #ddd;
+	margin-right: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-family: monospace;
+}
+
+.bottomlink a {
+	margin-left: 10px;	
+	margin-right: 10px;	
 }
 
 .puzzle .index {

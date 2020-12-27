@@ -1,0 +1,15 @@
+{% macro bottom_link(title, url, caption) -%}
+
+<div class="bottomlink">
+	
+	{{ title }}
+	
+	<a target="_blank" rel="noopener noreferrer" href="{{ url }}">
+		
+		{{ caption }}
+		
+	</a>
+	
+</div>
+
+{%- endmacro -%}

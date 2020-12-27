@@ -1,3 +1,5 @@
+{% import 'submacros.html' as submacros %}
+
 {% macro html_head(title) -%}
 
 <!DOCTYPE html>
@@ -45,16 +47,10 @@
 		<hr>
 
 		<div class="footer">
-
-			Discussion / Feedback 
-			<a target="_blank" rel="noopener noreferrer" href="https://discord.gg/8m3Muay">
-				Hyperbot Discord
-			</a>
-			| 
-			Source 
-			<a target="_blank" rel="noopener noreferrer" href="https://github.com/hyperchessbot/amgilp">
-				github.com/hyperchessbot/amgilp
-			</a>
+			
+			{{ submacros.bottom_link("Discussion / Feedback", "https://discord.gg/8m3Muay", "Hyperbot Discord") }}
+			
+			{{ submacros.bottom_link("Source", "https://github.com/hyperchessbot/amgilp", "github.com/hyperchessbot/amgilp") }}
 
 		</div>
 
