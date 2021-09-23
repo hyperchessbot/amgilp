@@ -1,4 +1,4 @@
-
+bash updategames &
 
 git clone https://github.com/kraktus/AreMyGamesInLichessPuzzles amgilp
 
