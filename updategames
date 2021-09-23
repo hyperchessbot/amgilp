@@ -21,5 +21,5 @@ do
     git add leaderboard.csv
     git commit -m "Update puzzle games"
     git push origin nunjucks
-    read -t 120 -p "I am going to wait for 120 seconds before next push ..."
+    read -t 600 -p "I am going to wait for 600 seconds before next push ..."
 done
