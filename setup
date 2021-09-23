@@ -1,5 +1,11 @@
 git clone https://github.com/kraktus/AreMyGamesInLichessPuzzles amgilp
 
+ls -l amgilp/puzzle_games.txt
+
+cp puzzle_games.txt ./amgilp/puzzle_games.txt
+
+ls -l amgilp/puzzle_games.txt
+
 cd amgilp
 
 pip3 install -r requirements.txt
