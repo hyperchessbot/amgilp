@@ -26,6 +26,5 @@ echo $DB_PATH
 python leaderboard.py clean
 
 bash updategames &
-cd amgilp
 
 python leaderboard.py create
