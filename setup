@@ -1,16 +1,30 @@
-bash updategames &
+echo "Cloning AreMyGamesInLichessPuzzles"
+read -t 3 -p ""    
 
 git clone https://github.com/kraktus/AreMyGamesInLichessPuzzles amgilp
+
+echo "Copying puzzle games"
+read -t 3 -p ""    
 
 ls -l amgilp/puzzle_games.txt
 
 cp puzzle_games.txt ./amgilp/puzzle_games.txt
 
-ls -l amgilp/puzzle_games.txt
-
 cd amgilp
 
+ls -l puzzle_games.txt
+
+echo "Installing Python dependencies"
+read -t 3 -p ""    
+
 pip3 install -r requirements.txt
+
+echo "Getting lichess puzzles"
+read -t 3 -p ""    
+
+rm lichess_db_puzzle.csv
+rm *.bz2
+rm *.bz2.*
 
 wget https://database.lichess.org/lichess_db_puzzle.csv.bz2
 
@@ -20,6 +34,9 @@ rm *.bz2
 rm *.bz2.*
 
 ls
+
+echo "Processing puzzles"
+read -t 3 -p ""    
 
 export DB_PATH=lichess_db_puzzle.csv
 
