@@ -1,17 +1,21 @@
-echo "Copying puzzle games"
-ls -l puzzle_games.txt
-wc -l puzzle_games.txt
-cp amgilp/puzzle_games.txt .
-ls -l puzzle_games.txt
-wc -l puzzle_games.txt
-echo "Copying leaderboard"
-ls -l leaderboard.csv
-cp amgilp/leaderboard.csv .
-ls -l leaderboard.csv
-echo "Pushing to git"
-git add updategames
-git add puzzle_games.txt
-git add setup
-git add leaderboard.csv
-git commit -m "Update puzzle games"
-git push origin nunjucks
+while :
+do
+    echo "Copying puzzle games"
+    ls -l puzzle_games.txt
+    wc -l puzzle_games.txt
+    cp amgilp/puzzle_games.txt .
+    ls -l puzzle_games.txt
+    wc -l puzzle_games.txt
+    echo "Copying leaderboard"
+    ls -l leaderboard.csv
+    cp amgilp/leaderboard.csv .
+    ls -l leaderboard.csv
+    echo "Pushing to git"
+    git add updategames
+    git add puzzle_games.txt
+    git add setup
+    git add leaderboard.csv
+    git commit -m "Update puzzle games"
+    git push origin nunjucks
+    read -t 120 -p "I am going to wait for 120 seconds before next push ..."
+done
