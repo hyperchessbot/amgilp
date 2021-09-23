@@ -1,6 +1,6 @@
-ls -l
+ls -l puzzle_games.txt
 cp amgilp/puzzle_games.txt .
-ls -l
+ls -l puzzle_games.txt
 git add updategames
 git add puzzle_games.txt
 git commit -m "Update puzzle games"
