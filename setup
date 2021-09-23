@@ -17,4 +17,6 @@ export DB_PATH=lichess_db_puzzle.csv
 
 echo $DB_PATH
 
+python leaderboard.py clean
+
 python leaderboard.py create
