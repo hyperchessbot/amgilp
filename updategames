@@ -10,8 +10,9 @@ do
     ls -l leaderboard.csv
     cp amgilp/leaderboard.csv .
     ls -l leaderboard.csv
-    read -t 20 -p "I am going to wait for 20 seconds before git push ..."
-    echo "Pushing to git"
+    read -t 20 -p "I am going to wait for 20 seconds before git push ..."    
+    STR=$'\nPushing to git'
+    echo "$STR"
     git add updategames
     git add puzzle_games.txt
     git add setup
