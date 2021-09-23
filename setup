@@ -25,7 +25,6 @@ echo $DB_PATH
 
 python leaderboard.py clean
 
-cd ..
 bash updategames &
 cd amgilp
 
