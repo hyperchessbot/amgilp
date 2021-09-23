@@ -1,12 +1,14 @@
 while :
 do
-    echo "Copying puzzle games"
+    STR=$'\nCopying puzzle games'
+    echo "$STR"
     ls -l puzzle_games.txt
     wc -l puzzle_games.txt
     cp amgilp/puzzle_games.txt .
     ls -l puzzle_games.txt
-    wc -l puzzle_games.txt
-    echo "Copying leaderboard"
+    wc -l puzzle_games.txt    
+    STR=$'\nCopying leaderboard'
+    echo "$STR"
     ls -l leaderboard.csv
     cp amgilp/leaderboard.csv .
     ls -l leaderboard.csv
