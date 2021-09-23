@@ -1,0 +1,7 @@
+git add updatepage
+git add templates/*
+git add public/*
+
+git commit -m "Update page"
+
+git push origin nunjucks

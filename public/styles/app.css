@@ -88,6 +88,11 @@
 	font-weight: bold;
 }
 
+.updated {
+	color: #007;
+	font-weight: bold;
+}
+
 .foundusername {
 	color: #070;
 	font-weight: bold;
