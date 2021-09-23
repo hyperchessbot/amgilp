@@ -1,5 +1,5 @@
 ls -l
-cp amgilp/puzzle_games.txt
+cp amgilp/puzzle_games.txt .
 ls -l
 git add updategames
 git add puzzle_games.txt
