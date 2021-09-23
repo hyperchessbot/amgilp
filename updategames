@@ -12,5 +12,6 @@ echo "Pushing to git"
 git add updategames
 git add puzzle_games.txt
 git add setup
+git add leaderboard.csv
 git commit -m "Update puzzle games"
 git push origin nunjucks
