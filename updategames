@@ -14,7 +14,7 @@ do
     ls -l leaderboard.csv
     cp amgilp/leaderboard.csv .
     ls -l leaderboard.csv
-    read -t $WAIT_CYC -p "Cycle $CYC done. I am going to wait for $WAIT_CYC seconds before git push ..."    
+    read -t 5 -p "I am going to wait for 5 seconds before git push ..."    
     let CYC=$CYC+1
     STR=$'\nPushing to git'
     echo "$STR"
@@ -24,5 +24,5 @@ do
     git add leaderboard.csv
     git commit -m "Update puzzle games"
     git push origin nunjucks
-    read -t 600 -p "I am going to wait for 600 seconds before next push ..."
+    read -t $WAIT_CYC -p "Cycle $CYC done. I am going to wait for $WAIT_CYC seconds before next push ..."
 done
