@@ -1,4 +1,4 @@
-let WAIT_CYC=600
+let WAIT_CYC=300
 let CYC=1
 while :
 do
