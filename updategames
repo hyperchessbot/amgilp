@@ -23,6 +23,7 @@ do
     git add leaderboard.csv
     git commit -m "Update puzzle games"
     git push origin nunjucks
-    read -t $WAIT_CYC -p "Cycle $CYC done. I am going to wait for $WAIT_CYC seconds before next push ..."
+    now=$(date)
+    read -t $WAIT_CYC -p "Cycle $CYC done at $now. I am going to wait for $WAIT_CYC seconds before next push ..."
     let CYC=$CYC+1
 done
