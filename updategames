@@ -1,3 +1,5 @@
+let WAIT_CYC=5
+let CYC=1
 while :
 do
     STR=$'\nCopying puzzle games'
@@ -12,7 +14,8 @@ do
     ls -l leaderboard.csv
     cp amgilp/leaderboard.csv .
     ls -l leaderboard.csv
-    read -t 20 -p "I am going to wait for 20 seconds before git push ..."    
+    read -t $WAIT_CYC -p "Cycle $CYC done. I am going to wait for $WAIT_CYC seconds before git push ..."    
+    let CYC=$CYC+1
     STR=$'\nPushing to git'
     echo "$STR"
     git add updategames
