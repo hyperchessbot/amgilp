@@ -86,13 +86,13 @@ puzzles.forEach(puzzle => {
 	const [_, username] =  puzzle.split(",")
 
 	if(username){
-		usernames[username.toLowerCase()] = puzzle
+		usernames[username.toLowerCase()] = i
 	}
 	
 	i++
 })
 
-fs.writeFileSync("strsim/usernames.txt", Object.keys(usernames).map(username => puzzle2blob(usernames[username]).username).join("\n"))
+fs.writeFileSync("strsim/usernames.txt", Object.keys(usernames).map(username => puzzle2blob(puzzles[usernames[username]]).username).join("\n"))
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -170,7 +170,7 @@ app.get('/', (req, res) => {
 	
 	let found = null
 	
-	if(username) found = usernames[username.toLowerCase()]
+	if(username) found = puzzles[usernames[username.toLowerCase()]]
 	
 	getBestMatch(username, found).then(bestMatch => {
 		if(username){
@@ -260,7 +260,7 @@ app.get('/api/users', (req, res) => {
 	
 	logDiscord(`api get users ${search} ( <${serverUrl}> )`)
 	
-	const records = search.map(username => usernames[username.toLowerCase()]).filter(item => typeof item != "undefined").map(item => puzzle2blob(item))
+	const records = search.map(username => usernames[username.toLowerCase()]).filter(item => typeof item != "undefined").map(i => puzzle2blob(puzzles[i]))
 	
 	res.send(JSON.stringify({
 		status: "ok",
