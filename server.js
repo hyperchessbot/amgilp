@@ -62,23 +62,31 @@ function logDiscord(msg){
 
 const TOPLIST_PAGE_SIZE = 100
 
-const puzzles = fs.readFileSync("leaderboard.csv").toString().replace(/\r/g, "").split("\n").slice(1)
+const LEADERBOARD_FILE = process.env["LEADERBOARD_FILE"] || "leaderboard.csv"
+
+const puzzles = fs.readFileSync(LEADERBOARD_FILE).toString().replace(/\r/g, "").split("\n").slice(1)
 
 const usernames = {}
+
+function puzzle2blob(puzzle) {
+	const [rank, username, num, ids] =  puzzle.split(",")
+	
+	return {
+		fullIndex0: i,
+		fullIndex1: i + 1,			
+		username: username,
+		rank: parseInt(rank),
+		num: parseInt(num),
+		puzzleIds: ids.split(" ")
+	}
+}
 
 let i = 0
 puzzles.forEach(puzzle => {
 	const [rank, username, num, ids] =  puzzle.split(",")
 	
 	if(username){
-		usernames[username.toLowerCase()] = {
-			fullIndex0: i,
-			fullIndex1: i + 1,			
-			username: username,
-			rank: parseInt(rank),
-			num: parseInt(num),
-			puzzleIds: ids.split(" ")
-		}
+		usernames[username.toLowerCase()] = puzzle2blob(puzzle)
 	}
 	
 	i++
@@ -275,4 +283,5 @@ app.use("/", express.static(path.join(__dirname, "/")))
 
 app.listen(PORT, _ => {
  	console.log(`amgilp nunjucks server listening at ${PORT}`)
+	console.log(`leaderdboard file ${LEADERBOARD_FILE} , memory used ${Math.round(process.memoryUsage().heapUsed / 1e6)} MB`)
 })
