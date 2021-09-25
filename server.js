@@ -70,7 +70,7 @@ const usernames = {}
 
 function puzzle2blob(puzzle) {
 	const [rank, username, num, ids] =  puzzle.split(",")
-	
+
 	return {
 		fullIndex0: i,
 		fullIndex1: i + 1,			
@@ -83,16 +83,16 @@ function puzzle2blob(puzzle) {
 
 let i = 0
 puzzles.forEach(puzzle => {
-	const [rank, username, num, ids] =  puzzle.split(",")
-	
+	const [_, username] =  puzzle.split(",")
+
 	if(username){
-		usernames[username.toLowerCase()] = puzzle2blob(puzzle)
+		usernames[username.toLowerCase()] = puzzle
 	}
 	
 	i++
 })
 
-fs.writeFileSync("strsim/usernames.txt", Object.keys(usernames).map(username => usernames[username].username).join("\n"))
+fs.writeFileSync("strsim/usernames.txt", Object.keys(usernames).map(username => puzzle2blob(usernames[username]).username).join("\n"))
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -141,7 +141,7 @@ function getBestMatch(username, found){return new Promise(resolve => {
 	}
 	
 	if(found){
-		resolve(found.username)
+		resolve(puzzle2blob(found).username)
 		
 		return 
 	}
@@ -176,6 +176,10 @@ app.get('/', (req, res) => {
 		if(username){
 			logDiscord(`getpuzzles of ${username} ( <${serverUrl}> )`)
 		}
+
+		found = found ? puzzle2blob(found) : found
+
+		console.log("found", found)
 		
 		res.render('nunjucks.html', {
 			username: username,
@@ -256,7 +260,7 @@ app.get('/api/users', (req, res) => {
 	
 	logDiscord(`api get users ${search} ( <${serverUrl}> )`)
 	
-	const records = search.map(username => usernames[username.toLowerCase()]).filter(item => typeof item != "undefined")
+	const records = search.map(username => usernames[username.toLowerCase()]).filter(item => typeof item != "undefined").map(item => puzzle2blob(item))
 	
 	res.send(JSON.stringify({
 		status: "ok",
